@@ -66,6 +66,11 @@ app.delete('/users/:id', (req, res) => {
     res.json({ message: "Пользователь удалён" });
 });
 
+app.get('/', (req, res) => {
+    res.send("Сервер работает! Перейдите на /users для получения списка пользователей.");
+});
+
+
 // ✅ Запуск сервера
 app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
