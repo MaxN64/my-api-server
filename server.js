@@ -6,14 +6,15 @@ const path = require('path'); // Подключаем path
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Разрешаем серверу работать с JSON
-app.use(express.json());
-app.use(cors());
+// 📌 Раздаём статические файлы из папки "public"
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Делаем папку доступной для отдачи файлов
-app.use(express.static(path.join(__dirname)));
+// 📌 Отдаём index.html при заходе на главную страницу "/"
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-// Функции для работы с "базой данных" (db.json)
+// 📌 Функции для работы с "базой данных" (db.json)
 const loadUsers = () => JSON.parse(fs.readFileSync('db.json', 'utf8'));
 const saveUsers = (users) => fs.writeFileSync('db.json', JSON.stringify(users, null, 2));
 
@@ -70,14 +71,8 @@ app.delete('/users/:id', (req, res) => {
     res.json({ message: "Пользователь удалён" });
 });
 
-// ✅ Раздаём HTML-страницу при заходе на "/"
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
 // ✅ Запуск сервера
 app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
+    console.log(`✅ Сервер запущен на порту ${PORT}`);
 });
-
 
