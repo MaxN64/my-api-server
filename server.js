@@ -1,16 +1,7 @@
-const path = require('path'); // Подключаем path
-app.use(express.static(path.join(__dirname))); // Делаем папку доступной для отдачи файлов
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html')); // Отправляем index.html при GET-запросе на /
-});
-
-
-
-
 const express = require('express');  // Подключаем Express.js
 const fs = require('fs');  // Работа с файлами
 const cors = require('cors');  // Разрешаем запросы с других доменов
+const path = require('path'); // Подключаем path
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 // Разрешаем серверу работать с JSON
 app.use(express.json());
 app.use(cors());
+
+// Делаем папку доступной для отдачи файлов
+app.use(express.static(path.join(__dirname)));
 
 // Функции для работы с "базой данных" (db.json)
 const loadUsers = () => JSON.parse(fs.readFileSync('db.json', 'utf8'));
@@ -76,16 +70,10 @@ app.delete('/users/:id', (req, res) => {
     res.json({ message: "Пользователь удалён" });
 });
 
-app.get('/', (req, res) => {
-    res.send("Сервер работает! Перейдите на /users для получения списка пользователей.");
-});
-// Раздаём статический HTML-файл
-const path = require('path');
+// ✅ Раздаём HTML-страницу при заходе на "/"
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
-
 
 // ✅ Запуск сервера
 app.listen(PORT, () => {
