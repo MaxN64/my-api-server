@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестирование API</title>
+</head>
+<body>
+    <h1>Тестирование API</h1>
+    <button onclick="getUsers()">📋 Получить всех пользователей</button>
+    <button onclick="addUser('Иван Иванов', 'ivan@example.com')">➕ Добавить</button>
+    <button onclick="updateUser(1, 'Иван Обновлённый', 'ivan_updated@example.com')">🔄 Обновить</button>
+    <button onclick="patchUser(1, { email: 'newemail@example.com' })">🛠 Частично обновить</button>
+    <button onclick="deleteUser(1)">❌ Удалить</button>
+
+    <script src="test.js"></script>
+</body>
+</html>
