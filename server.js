@@ -1,3 +1,13 @@
+const path = require('path'); // Подключаем path
+app.use(express.static(path.join(__dirname))); // Делаем папку доступной для отдачи файлов
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html')); // Отправляем index.html при GET-запросе на /
+});
+
+
+
+
 const express = require('express');  // Подключаем Express.js
 const fs = require('fs');  // Работа с файлами
 const cors = require('cors');  // Разрешаем запросы с других доменов
