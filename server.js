@@ -69,6 +69,12 @@ app.delete('/users/:id', (req, res) => {
 app.get('/', (req, res) => {
     res.send("Сервер работает! Перейдите на /users для получения списка пользователей.");
 });
+// Раздаём статический HTML-файл
+const path = require('path');
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 
 
 // ✅ Запуск сервера
