@@ -1,6 +1,11 @@
+// Определяем URL сервера
+const BASE_URL = window.location.hostname.includes('127.0.0.1') || window.location.hostname.includes('localhost')
+    ? 'http://127.0.0.1:3000'
+    : 'https://my-api-server-production.up.railway.app';
+
 // Функция загрузки списка пользователей
 function getUsers() {
-    fetch('/users')
+    fetch(`${BASE_URL}/users`)
         .then(response => response.json())
         .then(users => {
             const usersList = document.getElementById('users-list');
@@ -26,7 +31,7 @@ function addUser() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
-    fetch('/users', {
+    fetch(`${BASE_URL}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email })
@@ -43,7 +48,7 @@ function addUser() {
 function deleteUser(id) {
     if (!confirm('Вы уверены, что хотите удалить пользователя?')) return;
 
-    fetch(`/users/${id}`, { method: 'DELETE' })
+    fetch(`${BASE_URL}/users/${id}`, { method: 'DELETE' })
         .then(response => response.json())
         .then(data => {
             alert(data.message);
