@@ -3,7 +3,7 @@ const fs = require('fs');  // Работа с файлами
 const cors = require('cors');  // Разрешаем запросы с других доменов
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Разрешаем серверу работать с JSON
 app.use(express.json());
@@ -66,5 +66,8 @@ app.delete('/users/:id', (req, res) => {
     res.json({ message: "Пользователь удалён" });
 });
 
-// ✅ Запускаем сервер
-app.listen(PORT, () => console.log(`🚀 Сервер запущен на http://localhost:${PORT}`));
+// ✅ Запуск сервера
+app.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
+});
+
